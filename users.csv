@@ -1,2 +1,3 @@
-id;name;description;rate
-1;java;OOP;A
+ID,Name,Description,Rate
+1,Java,Better than C#,9
+2,javaScript,It's a trap!,10
