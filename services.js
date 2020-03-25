@@ -2,7 +2,7 @@ const csv = require("csv-database");
 
 class DataBase {
   constructor(fileName,fields) {
-    this.db = await csv(fileName,fields);
+    this.db = csv(fileName,fields);
   }
 
 addElement(langId, langName, langDescription, langRate) {
@@ -24,7 +24,7 @@ updateElement(langId, langName, langDescription, langRate) {
 }
 
 async getElement(langId) {
-  return await this.db.get({ id: langId });
+  return this.db.get({ id: langId });
 }
 
 async getAllElements() {

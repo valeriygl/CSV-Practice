@@ -1,6 +1,7 @@
 const https = require("https");
 const url = require("url");
 const { DataBase } = require("./services");
+const uid = require('uid');
 
 module.exports = https.createServer((request, response) => {
   const langDB = new DataBase("./users.csv", [
@@ -9,11 +10,13 @@ module.exports = https.createServer((request, response) => {
     "description",
     "rate"
   ]);
-  const queryRegEx = /\/languages\/([0-9]+)/;
+  const queryRegEx = /\/languages\/([0-9a-z]+)/;
+  console.log(request);
   //const langDB = db.dbInit("./users.csv", ["id", "name", "description", "rate"]);
   const requestUrl = url.parse(request.url, true);
   const queryData = requestUrl.pathname.match(queryRegEx);
-  if (queryRegEx.test(requestUrl.pathname)) {
+  console.log(queryData);
+  if (queryData) {
     switch (request.method) {
       case "GET": {
         const searchedEl = langDB.getElement(queryData[1]);
@@ -62,12 +65,12 @@ module.exports = https.createServer((request, response) => {
         request.on("data", chunk => {
           let language = JSON.parse(chunk);
           langDB.addElement(
-            incrID,
+            uid(),
             language.name,
             language.description,
             language.rate
           );
-          response.writeHead(204);
+          response.statusCode = 204;
           response.end();
         });
         break;
