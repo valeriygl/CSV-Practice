@@ -9,22 +9,21 @@ const {
 } = require("../Controllers/laguageController");
 
 module.exports = https.createServer((request, response) => {
-    const queryRegEx = /\/languages\/([0-9a-z]+)/;
+  const queryRegEx = /\/languages\/([0-9a-z]+)/;
   const requestUrl = url.parse(request.url, true);
   const queryData = requestUrl.pathname.match(queryRegEx);
-  console.log(queryData);
   if (queryData) {
     switch (request.method) {
       case "GET": {
-        getElement(queryData[1],response);
+        getElement(queryData[1], response);
         break;
       }
       case "PUT": {
-        updateElement(queryData[1],request, response);
+        updateElement(queryData[1], request, response);
         break;
       }
       case "DELETE": {
-        deleteElement(queryData[1],response);
+        deleteElement(queryData[1], response);
         break;
       }
       default: {

@@ -1,11 +1,13 @@
-const { getElements, appendElment, dataWriter } = require("../Services/languageServices");
+const {
+  getElements,
+  appendElment,
+  dataWriter
+} = require("../Services/languageServices");
 const uid = require("uid");
 
 function addElement(request, response) {
   request.on("data", chunk => {
-    let {name,description,rate} = JSON.parse(chunk);
-    console.log(name);
-    //console.log(Name);
+    let { name, description, rate } = JSON.parse(chunk);
     if (
       typeof name === "string" &&
       typeof description === "string" &&
@@ -23,36 +25,34 @@ function addElement(request, response) {
 
 function updateElement(langId, request, response) {
   request.on("data", chunk => {
-    const {name,description,rate} = JSON.parse(chunk);
-    console.log(name);
+    const { name, description, rate } = JSON.parse(chunk);
     let results = [];
-  let isUpdated = false;
-  const streamData = getElements();
-  streamData.on("data", data => results.push(data));
-  streamData.on("end", () => {
-    results = results.map(data => {
-      if (data.ID == langId) {
-        isUpdated = true;
-        return {
-          ID: langId,
-          Name: name,
-          Description: description,
-          Rate: rate
-        };
+    let isUpdated = false;
+    const streamData = getElements();
+    streamData.on("data", data => results.push(data));
+    streamData.on("end", () => {
+      results = results.map(data => {
+        if (data.ID == langId) {
+          isUpdated = true;
+          return {
+            ID: langId,
+            Name: name,
+            Description: description,
+            Rate: rate
+          };
+        }
+        return data;
+      });
+      if (isUpdated) {
+        dataWriter(results);
+        response.statusCode = 204;
+        response.end();
+      } else {
+        response.statusCode = 404;
+        response.end();
       }
-      return data;
     });
-    if (isUpdated) {
-      dataWriter(results);
-      response.statusCode = 204;
-      response.end();
-    } else {
-      response.statusCode = 404;
-      response.end();
-    }
   });
-  });
-  
 }
 
 function getElement(langId, response) {

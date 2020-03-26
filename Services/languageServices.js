@@ -1,11 +1,11 @@
 const csvParser = require("csv-parser");
 const csvWriter = require("csv-write-stream");
-const fs = require('fs');
+const fs = require("fs");
 
 function getElements() {
   return fs.createReadStream("./users.csv").pipe(csvParser());
 }
-function appendElment (langId, langName, langDescription, langRate) {
+function appendElment(langId, langName, langDescription, langRate) {
   const writeFile = fs.createWriteStream("./users.csv", { flags: "a" });
   const writer = csvWriter({ sendHeaders: false });
   writer.pipe(writeFile);
