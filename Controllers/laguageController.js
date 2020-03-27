@@ -29,9 +29,21 @@ function updateElement(langId, request, response) {
     let results = [];
     let isUpdated = false;
     const streamData = getElements();
-    streamData.on("data", data => results.push(data));
+    streamData.on("data", data =>{ 
+      if (data.ID == langId) {
+        isUpdated = true;
+        data = {
+          ID: langId,
+          Name: name,
+          Description: description,
+          Rate: rate
+        }
+        
+      }
+      results.push(data);
+    });
     streamData.on("end", () => {
-      results = results.map(data => {
+      /*results = results.map(data => {
         if (data.ID == langId) {
           isUpdated = true;
           return {
@@ -42,7 +54,7 @@ function updateElement(langId, request, response) {
           };
         }
         return data;
-      });
+      });*/
       if (isUpdated) {
         dataWriter(results);
         response.statusCode = 204;
@@ -56,14 +68,18 @@ function updateElement(langId, request, response) {
 }
 
 function getElement(langId, response) {
-  let results = [];
+  let results = null;
   const streamData = getElements();
-  streamData.on("data", data => results.push(data));
+  streamData.on("data", data => {
+    if(data.ID == langId){
+      results = data;
+      streamData.end();
+    }});
   streamData.on("end", () => {
-    const res = results.find(data => data.ID == langId);
-    if (res) {
+    //const res = results.find(data => data.ID == langId);
+    if (results) {
       response.writeHead(200, { "Content-Type": "application/json" });
-      response.end(JSON.stringify(results.find(data => data.ID == langId)));
+      response.end(JSON.stringify(results));
     } else {
       response.statusCode = 404;
       response.end();
@@ -83,12 +99,17 @@ async function getAllElements(response) {
 
 function deleteElement(langId, response) {
   let results = [];
+  let isDeleted = false;
   let streamData = getElements();
-  streamData.on("data", data => results.push(data));
+  streamData.on("data", data => {
+    if (data.ID != langId){
+    results.push(data)} else {
+      isDeleted = true;
+    }});
+    
   streamData.on("end", () => {
-    let deletedResults = results.filter(data => data.ID != langId);
-    if (deletedResults.length != results.length) {
-      dataWriter(deletedResults);
+    if (isDeleted) {
+      dataWriter(results);
       response.statusCode = 200;
       response.end();
     } else {
