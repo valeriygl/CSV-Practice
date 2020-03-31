@@ -1,45 +1,29 @@
 const https = require("http");
-const url = require("url");
 const {
-  addElement,
+  createElement,
   updateElement,
-  getElement,
-  getAllElements,
+  getElements,
   deleteElement
-} = require("../Controllers/laguageController");
+} = require("../controllers");
 
 module.exports = https.createServer((request, response) => {
-  const queryRegEx = /\/languages\/([0-9a-z]+)/;
-  const requestUrl = url.parse(request.url, true);
-  const queryData = requestUrl.pathname.match(queryRegEx);
-  if (queryData) {
+
+
     switch (request.method) {
       case "GET": {
-        getElement(queryData[1], response);
-        break;
-      }
-      case "PUT": {
-        updateElement(queryData[1], request, response);
-        break;
-      }
-      case "DELETE": {
-        deleteElement(queryData[1], response);
-        break;
-      }
-      default: {
-        response.statusCode = 404;
-        response.end();
-        break;
-      }
-    }
-  } else {
-    switch (request.method) {
-      case "GET": {
-        getAllElements(response);
+        getElements(request, response);
         break;
       }
       case "POST": {
-        addElement(request, response);
+        createElement(request, response);
+        break;
+      }
+      case "PUT": {
+        updateElement(request,response);
+        break;
+      }
+      case "DELETE": {
+        deleteElement(request,response);
         break;
       }
       default: {
@@ -48,5 +32,5 @@ module.exports = https.createServer((request, response) => {
         break;
       }
     }
-  }
+   
 });

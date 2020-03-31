@@ -1,4 +1,4 @@
-const server = require("./Router/router");
+const server = require("./router/router");
 
 const hostname = "localhost";
 const port = 3000;
