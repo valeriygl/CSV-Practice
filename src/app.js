@@ -1,4 +1,4 @@
-const router = require("./router/router");
+const router = require("./router");
 const { hostname, port } = require("./config");
 const https = require("http");
 
