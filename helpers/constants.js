@@ -1,1 +1,0 @@
-module.exports.tableHeaders = ["ID", "Name", "Description", "Rate"];

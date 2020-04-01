@@ -1,7 +1,7 @@
 const { deleteElement } = require("../services");
 const { urlParser } = require("../helpers");
 
-module.exports = function getElements(request, response) {
+module.exports = function del(request, response) {
   const parsedUrl = urlParser(request);
 
   if (parsedUrl) {

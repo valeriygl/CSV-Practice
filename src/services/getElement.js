@@ -1,4 +1,4 @@
-const {getDataStream} = require('../helpers')
+const getDataStream = require("./getDataStream");
 
 module.exports = function getElement(langId, response) {
   let results = null;
@@ -11,7 +11,6 @@ module.exports = function getElement(langId, response) {
     }
   });
   streamData.on("end", () => {
-    //const res = results.find(data => data.ID == langId);
     if (results) {
       response.writeHead(200, { "Content-Type": "application/json" });
       response.end(JSON.stringify(results));
@@ -21,6 +20,4 @@ module.exports = function getElement(langId, response) {
     }
   });
   streamData.on("error", err => console.error(err));
-}
-
-
+};

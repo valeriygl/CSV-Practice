@@ -1,4 +1,4 @@
-const {getDataStream} = require("../helpers/");
+const getDataStream = require("./getDataStream");
 
 module.exports = function getAllElements(response) {
   let results = [];
@@ -10,6 +10,4 @@ module.exports = function getAllElements(response) {
     response.end(JSON.stringify(results));
   });
   streamData.on("error", err => console.error(err));
-}
-
-
+};

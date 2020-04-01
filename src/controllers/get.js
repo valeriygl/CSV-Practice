@@ -1,7 +1,7 @@
 const { getElement, getAllElements } = require("../services");
 const { urlParser } = require("../helpers");
 
-module.exports = function getElements(request, response) {
+module.exports = function get(request, response) {
   const parsedUrl = urlParser(request);
 
   if (parsedUrl) {
