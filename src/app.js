@@ -1,5 +1,7 @@
 const router = require("./router");
-const { hostname, port } = require("./config");
+const { port } = require("./config");
 const https = require("http");
+//const host = 'localhost';
 
-module.exports = https.createServer(router).listen(port, hostname);
+module.exports = https.createServer(router).listen(port);
+//console.log(`running on http://${host}:${port}`);
