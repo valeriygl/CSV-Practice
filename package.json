@@ -13,6 +13,9 @@
       "/node_modules/"
     ]
   },
+  "engines": {
+    "node": "12.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valeriygl/CSV-Practice.git"
@@ -27,6 +30,7 @@
     "csv-parser": "^2.3.2",
     "csv-write-stream": "^2.0.0",
     "jest": "^25.2.4",
+    "pem": "^1.14.4",
     "supertest": "^4.0.2",
     "uid": "^1.0.0"
   }
