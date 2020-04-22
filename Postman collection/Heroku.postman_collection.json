@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "52a699e8-6c6a-453d-9cb8-2ba01682c7a3",
+		"name": "Heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET all Languages",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://csv-testv2.herokuapp.com/languages",
+					"protocol": "https",
+					"host": [
+						"csv-testv2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"languages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://csv-testv2.herokuapp.com/languages/1",
+					"protocol": "https",
+					"host": [
+						"csv-testv2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"languages",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new Language",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Some\",\n\t\"description\" : \"desc\",\n\t\"rate\" : \"5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://csv-testv2.herokuapp.com/languages",
+					"protocol": "https",
+					"host": [
+						"csv-testv2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"languages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit item",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Name\" : \"javaScript\",\n\t\"Description\" : \"It's a trap!\",\n\t\"Rate\" : \"10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://csv-testv2.herokuapp.com/languages/3",
+					"protocol": "https",
+					"host": [
+						"csv-testv2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"languages",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://csv-testv2.herokuapp.com/languages/sltu837w4t8",
+					"protocol": "https",
+					"host": [
+						"csv-testv2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"languages",
+						"sltu837w4t8"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
